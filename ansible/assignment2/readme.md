@@ -11,18 +11,16 @@ Also Configure nginx to run as reverse proxy to apache after completing first po
 
 install nginx with all the changes 
 
-![alt text](../picture/ass2.1.jpeg)
+![alt text](image.png)
 
 website photos 
+![alt text](image-1.png)
 
-![alt text](../picture/ass2.2.jpeg)
+![alt text](image-2.png)
 
-![alt text](../picture/ass2.3.jpeg)
-
-proxy installation in different server
-
-![alt text](../picture/ass2.4.jpeg)
+proxy server
+![alt text](image-3.png)
 
 host file of local system 
 
-![alt text](../picture/ass2.5.png)
+![alt text](image-4.png)

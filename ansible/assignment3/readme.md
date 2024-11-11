@@ -17,8 +17,8 @@ Show less
 
 installation steps  and its output
 
-![alt text](../picture/ass3.1.jpeg)
+![alt text](image-2.png)
 
 tomcat website pic
 
-![alt text](../picture/ass3.2.jpeg)
+![alt text](image-1.png)

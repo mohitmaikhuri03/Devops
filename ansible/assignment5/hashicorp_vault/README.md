@@ -36,3 +36,16 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+
+Images 
+
+install vault consul and tls certifcate 
+
+![alt text](image.png)
+![alt text](image-1.png)
+
+vault and cosnul  ui page 
+
+![alt text](image-2.png)
+![alt text](image-3.png)

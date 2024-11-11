@@ -10,6 +10,6 @@ Think of other system specific settings that you should manage
 
 system manager images 
 
-![alt text](../../picture/ass4.1.jpeg)
-
-![alt text](../../picture/ass4.2.jpeg)
+![alt text](image.png)
+ 
+ ![alt text](image-1.png)
