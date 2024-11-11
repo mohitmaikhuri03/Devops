@@ -1,0 +1,18 @@
+---
+
+- name: Ensure required groups are present
+  ansible.builtin.group:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - dev
+    - users
+
+- name: Manage users on the system
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+    shell: "{{ item.shell }}"
+    home: "{{ item.home }}"
+    create_home: yes
+  loop: "{{ users }}"

@@ -1,0 +1,12 @@
+# templates/service_template.j2
+[Unit]
+Description={{ service_name }}
+Documentation=https://{{ service_name }}project.io/docs/
+After=network.target
+
+[Service]
+ExecStart={{ exec_path }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

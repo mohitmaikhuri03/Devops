@@ -1,0 +1,6 @@
+---
+- name: main playbbok
+  hosts: all
+  become: true
+  roles:
+    - /etc/ansible/ansible/assignment4/system_manager

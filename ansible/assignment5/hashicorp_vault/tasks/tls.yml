@@ -1,0 +1,37 @@
+---
+- name: Create a directory for certificates
+  file:
+    path: "{{ certs_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Generate a private key for the CA
+  command: "openssl genpkey -algorithm RSA -out {{ certs_dir }}/ca-key.pem -pkeyopt rsa_keygen_bits:2048"
+  args:
+    creates: "{{ certs_dir }}/ca-key.pem"
+
+- name: Create a self-signed CA certificate
+  command: "openssl req -x509 -new -nodes -key {{ certs_dir }}/ca-key.pem -sha256 -days 365 -out {{ certs_dir }}/ca-cert.pem -subj '/CN=Consul-CA'"
+  args:
+    creates: "{{ certs_dir }}/ca-cert.pem"
+
+- name: Generate a private key for Consul
+  command: "openssl genpkey -algorithm RSA -out {{ certs_dir }}/consul-key.pem -pkeyopt rsa_keygen_bits:2048"
+  args:
+    creates: "{{ certs_dir }}/consul-key.pem"
+
+- name: Create a CSR for Consul with IP SANs
+  command: "openssl req -new -key {{ certs_dir }}/consul-key.pem -out {{ certs_dir }}/consul.csr -subj '/CN=consul'"
+  args:
+    creates: "{{ certs_dir }}/consul.csr"
+
+- name: Sign the Consul CSR with the CA
+  command: "openssl x509 -req -in {{ certs_dir }}/consul.csr -CA {{ certs_dir }}/ca-cert.pem -CAkey {{ certs_dir }}/ca-key.pem -CAcreateserial -out {{ certs_dir }}/consul-cert.pem -days 365 -sha256"
+  args:
+    creates: "{{ certs_dir }}/consul-cert.pem"
+
+- name: Ensure the permissions are correct on the certs directory
+  file:
+    path: "{{ certs_dir }}"
+    mode: '0770'
+    recurse: yes

@@ -1,0 +1,10 @@
+---
+- name: Set system timezone
+  ansible.builtin.command:
+    cmd: "timedatectl set-timezone {{ additional_settings.timezone }}"
+  when: additional_settings.timezone
+
+- name: Set system hostname
+  ansible.builtin.hostname:
+    name: "{{ additional_settings.hostname }}"
+  when: additional_settings.hostname

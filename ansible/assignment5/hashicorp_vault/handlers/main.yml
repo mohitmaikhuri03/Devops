@@ -1,0 +1,14 @@
+---
+- name: Restart Consul
+  systemd:
+    name: consul
+    state: restarted
+
+- name: Restart Vault
+  systemd:
+    name: vault
+    state: restarted
+
+# handlers/main.yml
+- name: Reload systemd
+  command: sudo systemctl daemon-reload

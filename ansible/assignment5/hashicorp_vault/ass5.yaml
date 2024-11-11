@@ -1,0 +1,6 @@
+---
+- name: Deploy and Configure HashiCorp Vault and Consul
+  hosts: web
+  become: yes
+  roles:
+    - /etc/ansible/ansible/assignment5/hashicorp_vault

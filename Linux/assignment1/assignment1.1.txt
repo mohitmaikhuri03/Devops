@@ -1,0 +1,26 @@
+pwd
+mkdir linux
+mkdir linux/Assignment-01
+mkdir /tmp/dir1
+mkdir  /tmp/dir1/dir2/dir3
+rmdir /tmp/dir1/dir2/dir3
+touch /tmp/Mohit
+echo "This is my first line" > /tmp/Mohit
+echo "this is an additional content" >> /tmp/Mohit
+echo "last-name is my last name" > /tmp/Maikhuri
+echo "this is line at the beginning" | cat - /tmp/Maikhuri > /tmp/temp && mv /tmp/temp /tmp/Maikhuri
+echo -e "hi\nhi\nhi\nhi\nhi\nhi\nhi\nhi\nhi\nhi" >> /tmp/maikhuri
+head -n 5 /tmp/Maikhuri
+tail -n 2 /tmp/Maikhuri
+awk 'NR==6' /tmp/maikhuri
+awk 'NR>=3 && NR<=8' /tmp/maikhuri
+ls -a /tmp
+find /tmp -type f
+find /tmp -type d
+cp /tmp/Maikhuri /tmp/dir2/
+cp /tmp/Maikhuri /tmp/dir2/kumar
+mv /tmp/Mohit /tmp/MOHIT
+mv /tmp/Maikhuri /tmp/dir1/
+> /tmp/dir2/last-name.copy
+rm /tmp/dir2/last-name.copy
+

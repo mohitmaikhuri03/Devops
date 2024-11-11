@@ -1,0 +1,44 @@
+---
+- name: Setup Apache as reverse proxy for Nginx on server2
+  hosts: server1
+  become: yes
+
+  vars:
+    nginx_server_ip: "204.236.212.92"  
+    website_domain: "last.opstree.com"
+
+  tasks:
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Enable necessary Apache modules
+      apache2_module:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - proxy
+        - proxy_http
+        - headers
+        - ssl
+
+    - name: Configure Apache as a reverse proxy
+      template:
+        dest: "/etc/apache2/sites-available/{{ website_domain }}.conf"
+        src: apache_template.j2
+      notify: restart apache
+
+    - name: Enable site configuration
+      file:
+        src: "/etc/apache2/sites-available/{{ website_domain }}.conf"
+        dest: "/etc/apache2/sites-enabled/{{ website_domain }}.conf"
+        state: link
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted

@@ -1,0 +1,45 @@
+---
+# vars file for system_manager
+# vars/main.yml
+
+software_list:
+  - nginx
+  - curl
+
+users:
+  - name: "mohit"
+    groups: "dev"
+    shell: "/bin/bash"
+    home: "/home/mohit"
+  - name: "leo"
+    groups: "users"
+    shell: "/bin/bash"
+    home: "/home/leo"
+
+
+git_repositories:
+  - repo: "https://github.com/mohitmaikhuri03/ass4.git"
+    dest: "/opt/ass4"
+    version: "main"
+
+  - repo: "https://github.com/mohitmaikhuri03/assignment4.git"
+    dest: "/opt/assignment4"
+    version: "main"
+
+folder_structure:
+  - path: "/var/www/myapp"
+    owner: "mohit"
+    group: "dev"
+    mode: "0755"
+  - path: "/opt/logs"
+    owner: "root"
+    group: "root"
+    mode: "0750"
+  - path: "/home/leo/projects"
+    owner: "leo"
+    group: "users"
+    mode: "0700"
+
+additional_settings:
+  timezone: "UTC"
+  hostname: "web"

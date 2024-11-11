@@ -1,0 +1,10 @@
+---
+- name: Ensure required folder structure exists
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop: "{{ folder_structure }}"
+

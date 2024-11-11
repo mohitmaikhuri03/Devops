@@ -1,0 +1,18 @@
+---
+vault_version: "1.18.0"
+consul_version: "1.14.0"
+vault_install_path: "/usr/local/bin/vault"
+consul_install_path: "/usr/local/bin/consul"
+vault_conf_path: "/etc/vault.d/vault.hcl"
+vault_data_dir: "/opt/vault/data"
+consul_conf_path: "/etc/consul.d/consul.hcl"
+consul_data_dir: "/opt/consul/data"
+certs_dir: "/etc/ssl/certs"
+vault_unseal_key: "your-unseal-key-here"
+vault_token_storage_path: "/opt/consul/vault-token-storage"
+# vars/main.yml
+vault_service_name: "vault"
+vault_exec_path: "/usr/local/bin/vault server -config={{ vault_conf_path }}"
+
+consul_service_name: "consul"
+consul_exec_path: "/usr/local/bin/consul agent -config-file={{ consul_conf_path }}"

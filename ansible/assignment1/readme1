@@ -1,0 +1,17 @@
+Assignment1-
+Complete the following steps with the help of ansible modules:
+UserManager:
+Add NinjaTeam (Simulate Group) ex: team1
+Add a User (Simulate) under a team ex: Nitish added to team1 Ensure below constraints are met:
+A user should have read,write, execute access to home directory
+All the users of same team should have read and excute access to home directory of fellow team members.
+In home directory of every user there should be 2 shared directories
+Team: Same team members will have full access
+Ninja: All ninja's will have full access
+Additional Features:
+Change user Shell
+Change user password
+Delete user
+Delete Group
+List user or Team
+

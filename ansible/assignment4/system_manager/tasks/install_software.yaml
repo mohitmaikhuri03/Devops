@@ -1,0 +1,19 @@
+---
+- name: Ensure required software is installed on Debian-based systems
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: "{{ software_list }}"
+  when: ansible_os_family == "Debian"
+  notify:
+    - restart nginx
+
+- name: Ensure required software is installed on RedHat-based systems
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ software_list }}"
+  when: ansible_os_family == "RedHat"
+  notify:
+    - restart nginx

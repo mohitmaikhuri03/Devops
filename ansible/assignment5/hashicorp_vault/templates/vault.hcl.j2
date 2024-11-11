@@ -1,0 +1,10 @@
+storage "file" {
+  path = "{{ vault_data_dir }}"
+}
+
+listener "tcp" {
+  address = "0.0.0.0:8200"
+  tls_cert_file = "{{ certs_dir }}/consul-cert.pem"
+  tls_key_file = "{{ certs_dir }}/consul-key.pem"
+}
+ui = true

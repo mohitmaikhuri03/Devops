@@ -1,0 +1,14 @@
+---
+- name: Create Consul configuration file with TLS settings
+  template:
+    src: consul.hcl.j2
+    dest: "{{ consul_conf_path }}"
+  notify:
+    - Restart Consul
+
+- name: Create Vault configuration file
+  template:
+    src: vault.hcl.j2
+    dest: "{{ vault_conf_path }}"
+  notify:
+    - Restart Vault

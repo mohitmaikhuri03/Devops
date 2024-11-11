@@ -1,0 +1,9 @@
+Date|Author Name|Author Email|Commit Message|Commit Hash
+Wed Oct 16 11:36:06 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Update README.md|91ebccfc5ebc0a8a7827329e3f6734ac65fa6135
+Wed Oct 16 00:19:10 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Update README.md|76a3a7a37978d17ca87bbf2f8c1f11708395ac4b
+Tue Oct 15 12:32:05 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Merge pull request #1 from mohitmaikhuri03/master|e021f365deedc1400b9c81daa37fd523a9d0943f
+Tue Oct 15 12:20:46 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Resolved conflict by taking changes from ninja branch|dde637a4db040da72fb8c712bc3f9bcebc6ed2fa
+Tue Oct 15 11:57:53 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Updated README.md with changes in ninja branch|2dee68950a718811af83ed761af6b27ec793b7a1
+Tue Oct 15 11:53:52 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Updated README.md with changes in master branch|8be7ce6b7eeac662d7e0cc51a2367efdcf12c439
+Tue Oct 15 11:40:40 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Add README.md with 'Trying fast forward merge' message|bd35c2392560b3310e93aa9f2e73d4e401a62222
+Tue Oct 15 11:26:17 2024 +0530|mohitmaikhuri03|mkmaikhuri@gmail.com|Initial commit|c65827e97f978aadff00c5f6c470668471fb5cce
