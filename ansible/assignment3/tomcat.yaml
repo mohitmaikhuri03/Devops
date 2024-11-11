@@ -1,0 +1,138 @@
+---
+- name: Deploy Spring3HibernateApp
+  hosts: web
+  become: yes
+  tasks:
+    - name: Install necessary dependencies
+      apt:
+        name:
+          - default-jdk
+          - maven
+          - git
+          - mysql-server
+          - openjdk-11-jdk
+        state: present
+        update_cache: yes
+
+    - name: Start MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: true
+
+    - name: Clone Spring3HibernateApp repository
+      ansible.builtin.git:
+        repo: https://github.com/opstree/spring3hibernate.git
+        dest: /home/ubuntu/spring3hibernate
+        single_branch: yes
+        version: master
+
+    - name: Build the Spring3HibernateApp WAR file
+      ansible.builtin.command:
+        cmd: "mvn clean package"
+        chdir: "/home/ubuntu/spring3hibernate"
+      register: maven_build
+      ignore_errors: no
+
+    - name: Create Tomcat group
+      ansible.builtin.group:
+        name: tomcat
+
+    - name: Create Tomcat user
+      ansible.builtin.user:
+        name: tomcat
+        home: /opt/tomcat
+        shell: /bin/false
+        state: present
+        create_home: yes
+        group: tomcat
+
+    - name: Download Tomcat
+      get_url:
+        url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.96/bin/apache-tomcat-9.0.96.tar.gz"
+        dest: "/tmp/apache-tomcat-9.0.96.tar.gz"
+
+    - name: Create Tomcat directory
+      file:
+        path: /opt/tomcat
+        state: directory
+        mode: '0755'
+
+    - name: Extract Tomcat
+      unarchive:
+        src: "/tmp/apache-tomcat-9.0.96.tar.gz"
+        dest: /opt/tomcat/
+        remote_src: yes
+
+    - name: Granting Tomcat ownership of the Tomcat directory
+      file:
+        path: /opt/tomcat/apache-tomcat-9.0.96
+        owner: tomcat
+        group: tomcat
+        recurse: yes
+        state: directory
+
+    - name: Set permissions for the bin directory
+      file:
+        path: /opt/tomcat/apache-tomcat-9.0.96/bin
+        mode: u+x
+        recurse: yes
+
+    - name: Add roles and users to tomcat-users.xml
+      blockinfile:
+        dest: /opt/tomcat/apache-tomcat-9.0.96/conf/tomcat-users.xml
+        content: |
+          <role rolename="manager-gui"/>
+          <role rolename="manager-script"/>
+          <role rolename="manager-admin"/>
+          <user username="tomcat" password="tomcat" roles="manager-gui,manager-script,manager-admin"/>
+        insertbefore: '</tomcat-users>'
+
+    - name: Remove Valve line from context.xml
+      replace:
+        path: /opt/tomcat/apache-tomcat-9.0.96/webapps/manager/META-INF/context.xml
+        regexp: '  <Valve className="org\.apache\.catalina\.valves\.RemoteAddrValve"'
+        replace: ''
+
+    - name: Remove second line 'allow="127...' from context.xml
+      replace:
+        path: /opt/tomcat/apache-tomcat-9.0.96/webapps/manager/META-INF/context.xml
+        regexp: '         allow="127\\\.\\d\+\\\.\\d\+\\\.\\d\+\|::1\|0:0:0:0:0:0:0:1" />'
+        replace: ''
+
+    - name: Add service file for Tomcat
+      copy:
+        dest: /etc/systemd/system/tomcat.service
+        content: |
+          [Unit]
+          Description=Tomcat
+          After=network.target
+          [Service]
+          Type=forking
+          User=tomcat
+          Group=tomcat
+          Environment="JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64"
+          Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
+          Environment="CATALINA_BASE=/opt/tomcat/apache-tomcat-9.0.96"
+          Environment="CATALINA_HOME=/opt/tomcat/apache-tomcat-9.0.96"
+          Environment="CATALINA_PID=/opt/tomcat/apache-tomcat-9.0.96/temp/tomcat.pid"
+          Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+          ExecStart=/opt/tomcat/apache-tomcat-9.0.96/bin/startup.sh
+          ExecStop=/opt/tomcat/apache-tomcat-9.0.96/bin/shutdown.sh
+          RestartSec=10
+          Restart=always
+          [Install]
+          WantedBy=multi-user.target
+      notify: restart tomcat
+
+    - name: Deploy WAR file to Tomcat webapps directory
+      ansible.builtin.copy:
+        src: "/home/ubuntu/spring3hibernate/target/Spring3HibernateApp.war"
+        dest: "/opt/tomcat/apache-tomcat-9.0.96/webapps/Spring3HibernateApp.war"
+        remote_src: yes
+      when: maven_build.rc == 0
+      notify: restart tomcat
+
+  handlers:
+    - name: restart tomcat
+      shell: "sudo systemctl daemon-reload && sudo systemctl restart tomcat"
