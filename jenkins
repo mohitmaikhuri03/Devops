@@ -1,0 +1,121 @@
+SME (Subject Matter Expert)- SME provides guidance, code reviews, mentorship, problem-solving, documentation, and stays updated to ensure best practices and efficiency in software development.
+SLA (Service Level Agreement)- SLA is a formal contract between a service provider and a client that defines the expected service level. It includes performance goals, uptime expectations, and penalties
+High Availability (HA)- HA is about designing systems to run with very little downtime. It involves having backups and systems that can automatically switch over if something fails, ensuring the service is reliable.
+Disaster Recovery (DR)- DR is a plan and set of processes to restore systems, data, and operations after a major failure or disaster, like a natural event, cyberattack, or system crash.
+RTO(Recovery Time Objective)- focuses on how fast recovery needs to happen.
+RPO (Recovery Point Objective)- focuses on how much data loss is acceptable.
+MTTR (Mean Time to Recovery)- focuses on the time taken to recover after a failure.
+Monitoring- It is the continuous process of checking a system’s performance, availability, and overall health to detect and resolve issues before they impact users.
+Jenkins :- Jenkins is an open-source automation tool/server and written in Java widely used for continuous integration and continuous delivery (CI/CD). It helps developers to automate parts of SDLC related to building, testing, and deploying, facilitating more efficient and error-free workflows. It is free community supported (lots of plugins)
+Jenkins is popular:-
+Continuous Integration/Continuous Delivery
+Easy installation
+Plugins
+Extensible
+Easy configuration
+Distributed
+Continuous Integration (Ci)-This allows developers to integrate code into a repository frequently, running automated tests to catch issues early.
+Continuous Delivery (Cd)- Automates the deployment of applications to various environments, ensuring that updates can be made reliably and frequently.
+Master and slave- it has a master-slave architecture. The master runs the main Jenkins process, while agents/slaves are used to run builds and tasks, which helps distribute the workload.
+Types of jobs:-
+Freestyle project- This is the most basic type of job in Jenkins, configure tasks like building, testing, and deploying by manually adding steps, such as running shell commands, invoking build scripts, or triggering other jobs.
+Maven project- This type of job is specifically designed for Java projects using Maven, a popular build automation tool.
+Pipeline project- The pipeline job script is written using Groovy, which provides flexibility and control over the CI/CD process.
+Multi configuration- This is useful when you need to test your software across multiple environments or configurations.
+Folder- Folder job is used to organize and manage other Jenkins jobs.
+Multi branch pipeline- It's useful for projects with many branches, as it allows each branch to have its own pipeline for testing and deployment.
+Organization folder- It’s ideal for large teams or organizations with many repositories, as it scales the management of Jenkins jobs automatically.
+Freestyle project components:-
+General- Basic job configuration
+Source Code Management (SCM)- Set up repository integration to get source code.
+Build trigger- Define when and how the job should be triggered.
+Build- Steps to compile, test, and package the code.
+Post build action- Actions to take after the build (e.g., notifications, reports, or archiving files).
+Categories plugins:-
+User Interface Plugins:- enhance the visual and navigational experience within Jenkins (e.g., Blue Ocean, Dashboard View).
+Administration Plugins:- help with managing Jenkins, user roles, backups, and system monitoring (e.g., Role-based Authorization).
+Build Plugins- focus on automating and reporting on the build process, integrating with build tools and testing frameworks (e.g., Maven, Junit, Ant)
+SCM Plugins- enable Jenkins to work with version control systems like Git, bitbucket
+Ci/cd stages:-
+Clone- Fetch the latest code from a version control system
+Pre-build Checks- Perform various checks before the actual build process starts to ensure that the code is in a good state.
+Code Compilation: Converts source code into executable artifacts.
+Credential Scan: Detects and prevents accidental exposure of sensitive information (like API keys or passwords) in the code.
+Dependency Scan:To ensure that the project’s dependencies are up-to-date and properly configured.
+License Analysis: Ensures that all dependencies comply with open-source licenses and that the project is legally compliant.
+Static Analysis: Analyzes code for bugs, security issues, and potential quality problems without executing it.(Dry Run)
+Code Coverage: Measures the percentage of code that is covered by automated tests to ensure the code is adequately tested.
+Build- Compile the code, run unit tests, and generate artifacts.
+Post build checks- Validate the build with integration tests, security scans, and other quality checks.
+Health Check- Validates that all essential services of the application are operational and that the application environment is stable.
+Sanity test- Quick check to ensure that the build is stable and doesn't have obvious defects.
+Functional test- Verifies that the application meets functional requirements and behaves as expected from an end-user perspective.
+Integration test- Ensures that different parts of the application (or different services) work together as expected.
+Dynamic Application security testing- Scans the running application for security vulnerabilities and weaknesses.
+Release/ artifacts- Store and version the build artifacts for deployment.
+Properties of artifacts server:-
+Universal- supports various artifact types, ensuring compatibility with different technologies tools.
+HA & DA- ensures that the repository remains accessible and data is safe even during failures or disasters.
+Security- protects artifacts with access controls, encryption, and vulnerability scanning, ensuring only authorized users and systems can access the artifacts.
+Integration- Seamlessly integrates with other CI/CD tools and version control systems to automate the artifact storage and retrieval process.
+Scalability- can scale to handle increased storage and performance demands as the system and team grow.
+Monitoring- Track the application's performance and health and report after deployment.
+Notification- Notify stakeholders of build or deployment results.
+DSL:
+In Jenkins, DSL (Domain-Specific Language) refers to a set of Groovy-based scripts designed to simplify the configuration and management of Jenkins jobs and pipelines. There are two primary types of DSL in Jenkins:
+1. Pipeline DSL:
+Used to define and manage Jenkins pipelines.
+Written in Groovy and typically stored in a file called Jenkinsfile.
+Supports two styles:
+Declarative Pipeline: Easier to read and write; has a defined structure.
+Scripted Pipeline: Offers more flexibility but requires more coding effort.
+Purpose: Defines what your pipeline does step-by-step (build, test, deploy).
+2. Job DSL:
+Used to create and configure Jenkins jobs programmatically.
+Helps in managing a large number of jobs by defining their configurations in Groovy scripts.
+Works well with the Job DSL Plugin.
+Purpose: Automates the creation and management of Jenkins jobs.
+Key Benefits of DSL in Jenkins
+Automation: Reduces manual configuration of pipelines or jobs.
+Version Control: DSL scripts can be stored in source control systems like Git.
+Reusability: Common patterns and configurations can be reused across projects.
+Scalability: Manages a large number of jobs or pipelines easily.
+Shared library:
+A Shared Library in Jenkins is a way to organize and reuse common code (like Groovy scripts, functions, or pipeline steps) across multiple Jenkins pipelines. It allows teams to maintain a centralized location for commonly used logic, which can then be referenced in different Jenkinsfiles. This promotes code reuse, reduces duplication, and helps in maintaining consistency across multiple pipelines.
+Key Concepts of Shared Libraries in Jenkins:
+Code Reusability:
+You can store commonly used pipeline logic (e.g., build steps, deployment procedures) in a shared library and call them in different Jenkinsfiles.
+Modularization:
+It allows you to modularize complex pipeline logic by splitting it into smaller, reusable parts (scripts, functions, etc.).
+Centralized Management:
+A Shared Library is typically stored in a separate Git repository, making it easier to manage and version the code for common tasks across multiple projects.
+Structure of a Shared Library:
+vars/: Contains Groovy scripts or functions that are called directly in Jenkinsfiles.
+src/: Contains custom Groovy classes or more complex logic.
+resources/: For additional files like configuration files, JSON, or YAML.
+Benefits of Shared Libraries:
+Code Reuse: Write once, reuse across multiple Jenkinsfiles.
+Centralized Maintenance: Update pipeline logic in one place (the shared library), and it propagates to all pipelines using it.
+Versioning: Shared libraries can be versioned using Git, making it easy to manage changes
+Master/Slave concept:
+The Master/Slave concept in Jenkins is a way to distribute workloads across multiple machines to improve the performance and scalability of Jenkins builds and jobs.
+Master Node:
+The Master node is the central Jenkins server that manages and controls the entire Jenkins environment.
+It handles the following tasks:
+Managing Jenkins jobs and pipelines.
+Scheduling builds.
+Managing plugins and system configurations.
+User interface: The Master serves the Jenkins web UI where users can configure jobs and view build results.
+Slave Node (also called Agent):
+A Slave (or Agent) is a remote machine that is connected to the Master to run jobs.
+It is used to offload the execution of builds from the Master, allowing Jenkins to distribute builds across multiple machines to avoid resource bottlenecks and improve build times.
+Slaves are used for tasks like:
+Running builds for specific environments (e.g., Linux, Windows, macOS).
+Running parallel tasks to speed up the overall build process.
+How it Works:
+The Master node manages job scheduling, but the actual job execution happens on the Slave nodes.
+The Master and Slave nodes communicate over a network, with the Slave node being configured to listen for incoming connections from the Master.
+A job can be assigned to a Slave node based on specific criteria like labels or available resources.
+Conclusion:
+The Master/Slave concept in Jenkins helps to distribute the build load across multiple machines, improving scalability and performance. The Master manages the jobs, while the Slaves execute them, ensuring that Jenkins can handle more jobs without overloading the central server.
+
