@@ -1,0 +1,94 @@
+1994  python3 --version
+ 1995  ansible-galaxy collection install amazon.aws
+ 1996  sudo pip3 install boto3
+ 1997  clear
+ 1998  cd /etc/ansible
+ 1999  sudo nano ansible.cfg
+ 2000  CD ~
+ 2001  cd ~
+ 2002  ls
+ 2003  sudo nano ./ansible.cfg
+ 2004  ls
+ 2005  cd ./a
+ 2006  sudo nano aws_ec2.yaml
+ 2007  ansible-inventory -i aws_ec2.yaml --list
+ 2008  clear
+ 2009  sudo nano aws_ec2.yaml
+ 2010  ansible-inventory -i aws_ec2.yaml --list
+ 2011  sudo nano aws_ec2.yaml
+ 2012  clear
+ 2013  ansible-inventory -i aws_ec2.yaml --list
+ 2014  ansible-inventory -i aws_ec2.yaml --graph
+ 2015  clear
+ 2016  ls
+ 2017  cat ansible.cfg
+ 2018  sudo nano ansible.cfg
+ 2019  cat ansible.cfg
+ 2020  sudo nano ansible.cfg
+ 2021  clear
+ 2022  ansible aws_ec2 -m ansible.builti.ping -i aws_ec2.yaml
+ 2023  cat ansible.cfg
+ 2024  ansible all  -m ansible.builti.ping -i aws_ec2.yaml
+ 2025  ping ip-172-31-89-228.ec2.internal
+ 2026  ansible all -m ansible.builtin.ping -i aws_ec2.yaml
+ 2027  clear
+ 2028  ansible all -m ansible.builtin.ping -i aws_ec2.yaml
+ 2029  cat ansible.cfg
+ 2030  ansible-inventory -i aws_ec2.yaml --graph
+ 2031  sudo nano mainkey
+ 2032  sudo nano ansible.cfg
+ 2033  sudo nano aws_ec2.yaml
+ 2034  ansible-inventory -i aws_ec2.yaml --graph
+ 2035  ansible all -m ansible.builtin.ping -i aws_ec2.yaml
+ 2036  sudo nano aws_ec2.yaml
+ 2037  sudo nano ansible.cfg
+ 2038  clear
+ 2039  cat ansible.cfg
+ 2040  cat aws_ec2.yaml
+ 2041  sudo nano ansible.cfg
+ 2042  ansible all -m ansible.builtin.ping -i aws_ec2.yaml
+ 2043  sudo nano ansible.cfg
+ 2044  clear
+ 2045  sudo nano ansible.cfg
+ 2046  ansible all -m ansible.builtin.ping -i aws_ec2.yaml
+ 2047  cat aws_ec2.yaml
+ 2048  sudo nano aws_ec2.yaml
+ 2049  ansible all -m ansible.builtin.ping -i aws_ec2.yaml
+ 2050  ansible-inventory -i aws_ec2.yaml --graph
+ 2051  cp /etc/ansible/vault.yaml  /home/maikhuri_03/
+ 2052  ls
+ 2053  ansible-playbook vault.yaml
+ 2054  sudo nano vault
+ 2055  sudo nano vault.yaml
+ 2056  clear
+ 2057  ansible-playbook vault.yaml
+ 2058  history
+
+
+
+ cat ansible.cfg
+[defaults]
+inventory=./aws_ec2.yaml
+host_key_checking=False
+forks=10
+collections_path=./collections  # Correct the singular form
+private_key_file=./mainkey
+remote_user=ubuntu
+
+
+maikhuri_03@MOHIT:~$ cat aws_ec2.yaml
+---
+plugin: amazon.aws.aws_ec2
+aws_access_key: "AKIAZI2LCOF2OCFB3OLY"
+aws_secret_key: "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"
+regions:
+  - us-east-1
+keyed_groups:
+  - key: tags.bhari
+filters:
+  instance-state-name: running  # Only include running instances
+#hostnames:
+ # - public_ip  # Ensure you use public_ip instead of public-ip-address
+remote_user: ubuntu
+
+
