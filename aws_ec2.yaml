@@ -1,7 +1,7 @@
 ---
 plugin: amazon.aws.aws_ec2
-aws_access_key: "AKIAZI2LCOF2OCFB3OLY"
-aws_secret_key: "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"
+aws_access_key: ""
+aws_secret_key: ""
 regions:
   - us-east-1
 keyed_groups:
