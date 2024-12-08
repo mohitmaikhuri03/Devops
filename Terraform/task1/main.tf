@@ -12,128 +12,133 @@ Kindly submit this task ASAP.
 
 
 
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "5.80.0"
-    }
-  }
-}
-
+# Configure the AWS Provider
 provider "aws" {
-    region = "us-east-1"
+  region = "us-east-1"
 }
 
 resource "aws_vpc" "vpc" {
-  cidr_block       = "10.0.0.0/20"
+  cidr_block       = "10.0.0.0/16"
   instance_tenancy = "default"
 
   tags = {
-    Name = "task1"
+    Name = "Task1"
   }
 }
-resource "aws_subnet" "pub-subnet1" {
+
+resource "aws_subnet" "pubsubnet1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "public_sub1"
+    Name = "Public1"
   }
 }
-resource "aws_subnet" "pub-subnet2" {
+
+resource "aws_subnet" "pubsubnet2" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.2.0/24"
+  cidr_block        = "10.0.16.0/20"
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "public_sub2"
+    Name = "Public2"
   }
 }
-resource "aws_subnet" "pvt-subnet1" {
+
+resource "aws_subnet" "pvtsubnet1" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.3.0/24"
+  cidr_block        = "10.0.32.0/20"
   availability_zone = "us-east-1a"
+
   tags = {
-    Name = "private_sub1"
+    Name = "Private1"
   }
 }
-resource "aws_subnet" "pvt-subnet2" {
+
+resource "aws_subnet" "pvtsubnet2" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.4.0/24"
+  cidr_block        = "10.0.48.0/20"
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "private_sub2"
+    Name = "Private2"
   }
 }
 
-resource "aws_internet_gateway" "gw" {
+resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.vpc.id
-
   tags = {
-    Name = "IG_task1"
+    Name = "igw"
   }
 }
 
-resource "aws_route_table" "pub-RT" {
-  vpc_id = aws_vpc.vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
-  }
-
-  tags = {
-    Name = "public_routeTable"
-  }
-}
-resource "aws_route_table_association" "public_sub1" {
-  subnet_id      = aws_subnet.pub-subnet1.id
-  route_table_id = aws_route_table.pub-RT.id
-}
-
-resource "aws_route_table_association" "public_sub2" {
-  subnet_id      = aws_subnet.pub-subnet2.id
-  route_table_id = aws_route_table.pub-RT.id
-}
-
-resource "aws_nat_gateway" "NAT" {
-  connectivity_type = "private"
-  subnet_id         = aws_subnet.pub-subnet1.id
-}
-
-resource "aws_route_table" "pvt-RT" {
+resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.NAT.id
+    gateway_id = aws_internet_gateway.internet_gateway.id
   }
 
   tags = {
-    Name = "private_routeTable"
+    Name = "public_route"
   }
 }
 
-resource "aws_route_table_association" "private_sub1" {
-  subnet_id      = aws_subnet.pvt-subnet1.id
-  route_table_id = aws_route_table.pvt-RT.id
+resource "aws_route_table_association" "public_1" {
+  subnet_id      = aws_subnet.pubsubnet1.id
+  route_table_id = aws_route_table.public_route_table.id
 }
-resource "aws_route_table_association" "private_sub2" {
-  subnet_id      = aws_subnet.pvt-subnet2.id
-  route_table_id = aws_route_table.pvt-RT.id
+
+resource "aws_route_table_association" "public_2" {
+  subnet_id      = aws_subnet.pubsubnet2.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+resource "aws_eip" "nat_eip" {
+  domain = "vpc"
+}
+
+resource "aws_nat_gateway" "nat" {
+  connectivity_type = "public"
+  subnet_id         = aws_subnet.pubsubnet1.id
+  allocation_id     = aws_eip.nat_eip.id
+}
+
+resource "aws_route_table" "private_route_table" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat.id
+  }
+
+  tags = {
+    Name = "private_route"
+  }
+}
+
+resource "aws_route_table_association" "private_1" {
+  subnet_id      = aws_subnet.pvtsubnet1.id
+  route_table_id = aws_route_table.private_route_table.id
+}
+
+resource "aws_route_table_association" "private_2" {
+  subnet_id      = aws_subnet.pvtsubnet2.id
+  route_table_id = aws_route_table.private_route_table.id
 }
 
 resource "aws_security_group" "public_sg" {
-  vpc_id = aws_vpc.vpc.id
-  name   = "public_sg"
+  name        = "public_sg"
+  description = "Allow  inbound traffic"
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
+    description = "Traffic from VPC"
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -145,15 +150,17 @@ resource "aws_security_group" "public_sg" {
   }
 
   tags = {
-    Name = "public_security_group"
+    Name = "Public_security_grp"
   }
 }
 
 resource "aws_security_group" "private_sg" {
-  vpc_id = aws_vpc.vpc.id
-  name   = "private_sg"
+  name        = "private_sg"
+  description = "Allow  inbound traffic"
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
+    description = "Traffic from VPC"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -168,6 +175,6 @@ resource "aws_security_group" "private_sg" {
   }
 
   tags = {
-    Name = "private_security_group"
+    Name = "Private_security_grp"
   }
 }
