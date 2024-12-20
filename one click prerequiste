@@ -22,7 +22,9 @@ sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 
+DO THE AWS CONFIGURE HERE ALSO
 
+############################
 dynamic inventory
 
 
@@ -48,7 +50,7 @@ add jenkins in sudoers group using sudo visudo
 
 jenkins ALL=(ALL) NOPASSWD:ALL
 
-in jenkins also configure secret key access key so it can connect aws and secret key 
+in jenkins also  AWS configure secret key access key so it can connect aws and secret key 
 
 ##############################################################
 
