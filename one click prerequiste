@@ -37,31 +37,55 @@ aws_ec2.yaml and annsible.cfg are present in this repo
 
 jenkins 
 
+sudo apt update
 sudo apt install openjdk-17-jdk -y
+
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get update
-sudo apt-get install Jenkins
+sudo apt-get install jenkins
 
 add jenkins in sudoers group using sudo visudo
 
 jenkins ALL=(ALL) NOPASSWD:ALL
 
+then change it to user jenkins
+---> sudo su jenkins
 in jenkins also  AWS configure secret key access key so it can connect aws and secret key 
-
+aws configure
+aws secret key access key 
 ##############################################################
 
 INSIDE JENKINS 
+
+ADD BLUE OCEAN PLUGIN 
+
 1) ANSIBLE PLUGIN THEN  GO IN TOOLS SECTION AND CONFIGURE IT 
 
 USE PIPELINE SYNNTAX OF ANSIBLE TO GIVE YOU PEM KEY THERE AND INVENTORY AND DYNAMIC PATH THERE SO IT CAN GIVE YOU CREDENTIAL THERE TO RUN THE ROLE  
 
+give its name ansible and path /usr/bin
 
 2) INSTALL TERRAFORM PLUGIN
-  GO IN TOOLS SECTION AND CONFIGURE IT
+  GO IN TOOLS SECTION AND CONFIGURE IF YOU WANT TO NOT NECCESSARY BECAUSE I HAVE GIVEN IN CODE DIRECTLY
+
+3) CREDENTIALS THINGS 
+
+GO TO CREDENTAILS SEELECT USERNAME WITH PASSWORD
+--> GIVE USER ubuntu
+---> give your pem key 
+it will create credentails 
+paste it in ansible thing
+
+
+2) go under secret tect guve access key and secret key use this format to give
+
+AWS_ACCESS_KEY_ID 
+AWS_SECRET_ACCESS_KEY
+
 
 
  
