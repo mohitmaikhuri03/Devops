@@ -81,7 +81,7 @@ it will create credentails
 paste it in ansible thing
 
 
-2) go under secret tect guve access key and secret key use this format to give
+2) go under secret text which is there in creditilas  give access key and secret key use this format to give
 
 AWS_ACCESS_KEY_ID 
 AWS_SECRET_ACCESS_KEY
