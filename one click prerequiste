@@ -30,7 +30,8 @@ dynamic inventory
 
 ansible-galaxy collection install amazon.aws
 sudo apt install python3-pip
- pip install botocore3
+ pip install botocore3 /  sudo pip3 install boto3 you can use this if the stsrting command does not work of not you can take 
+the help of chatgpt for tihs 
 
 aws_ec2.yaml and annsible.cfg are present in this repo 
 ##########################################
