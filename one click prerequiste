@@ -76,13 +76,13 @@ give its name ansible and path /usr/bin
 3) CREDENTIALS THINGS 
 
 GO TO CREDENTAILS SEELECT USERNAME WITH PASSWORD
---> GIVE USER ubuntu
+--> GIVE USERNAME ubuntu
 ---> give your pem key 
 it will create credentails 
 paste it in ansible thing
 
 
-2) go under secret text which is there in creditilas  give access key and secret key use this format to give
+2) go under secret text which is there in creditilas  give access key and secret key use this format to give inside id section 
 
 AWS_ACCESS_KEY_ID 
 AWS_SECRET_ACCESS_KEY
