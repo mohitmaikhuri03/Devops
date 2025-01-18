@@ -2539,3 +2539,6 @@ Job DSL (Domain-Specific Language) is a way to define Jenkins jobs programmatica
 You can use Job DSL for different types of jobs, including Freestyle jobs, Pipeline jobs, and others. It uses a Groovy-like syntax to define the job structure and configurations.
 
 In simple terms: Job DSL is used to automate the creation and management of Jenkins jobs with code.
+
+
+
