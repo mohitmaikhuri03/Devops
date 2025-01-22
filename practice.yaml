@@ -570,3 +570,6 @@ ansible all -m yum -a "name='*' state=latest" -b
 Boto3: High-level Python SDK for working with AWS services easily. It provides user-friendly methods to interact with AWS (e.g., creating an S3 bucket, launching an EC2 instance).
 Botocore: Low-level library that does the actual communication with AWS APIs. It’s the backbone of Boto3 and handles requests, retries, and responses.
 Botocore ka kaam hai "backend mein AWS ke saath communication karna," aur Boto3 usko use karke high-level functionalities provide karta hai
+
+
+
