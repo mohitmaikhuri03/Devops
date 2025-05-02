@@ -3,6 +3,10 @@ Ansible is mainly a configuration management and automation tool. It excels at m
 
 Terraform is a dedicated infrastructure-as-code tool. It is designed specifically for creating, provisioning, and managing infrastructure (e.g., networks, servers, databases) across cloud providers. Terraform’s approach to managing infrastructure state and its support for cloud-native resources make it more efficient and reliable for infrastructure creation than Ansible.
 
+![image](https://github.com/user-attachments/assets/1dbae0bc-3508-43d1-8e46-e6a14f623e70)
+
+
+
 
 In summary: Ansible is ideal for managing and automating existing infrastructure, while Terraform is better for creating and provisioning infrastructure from scratch.ansible is a config management tool whcih is used for software update install 
 Ansible is a automation toll used to simplify tasks like servers seeting up deploy applications
