@@ -576,4 +576,7 @@ Botocore: Low-level library that does the actual communication with AWS APIs. It
 Botocore ka kaam hai "backend mein AWS ke saath communication karna," aur Boto3 usko use karke high-level functionalities provide karta hai
 
 
-
+Boto3 ek high-level Python library hai jo AWS ke saath kaam karna easy banati hai (jaise S3 bucket banana, EC2 launch karna).
+Botocore low-level library hai jo AWS APIs ke saath actual communication karti hai – ye Boto3 ke peeche ka engine hai.
+Bina Botocore ke, Boto3 kaam nahi karta.
+Lekin Botocore ko alag se bhi use kar sakte hain, lekin wo complex hota hai.
