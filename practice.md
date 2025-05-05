@@ -304,6 +304,9 @@ but they will do so in a staggered manner controlled by the throttle setting.
         name: nginx
         state: present
 
+      ![image](https://github.com/user-attachments/assets/5405e19b-855c-4411-abf9-9aaac817ae02)
+
+
 
 CONDITIONAL CLAUSES
 when clause: This is the most commonly used way to apply conditions in Ansible. 
@@ -396,6 +399,8 @@ PLAYBOOK
 INCLUSIONS :- 
 INCLUDE VARS INCLUDE TASK 
 IMPORT TASK AND IMPORT PLAYBOOK 
+
+Inclusion refers to the mechanism of reusing code (tasks, handlers, or entire playbooks) by including or importing them into another playbook.
 
 Summary
 import :  ( STATIC ) Conditions are checked before running the playbook because import_* statements 
@@ -548,6 +553,9 @@ Ansible Galaxy: A platform where you can share and download roles and collection
 Play: A single section in the playbook targeting specific hosts with tasks to run.
 Playbook: A file that contains multiple plays, allowing you to automate tasks across various systems in a sequence.
 
+![image](https://github.com/user-attachments/assets/5ad6125d-fe2c-468d-ad0b-621ab2a75529)
+
+
 
 Slave (Managed Node):
 
@@ -584,3 +592,11 @@ Lekin Botocore ko alag se bhi use kar sakte hain, lekin wo complex hota hai.
 
 
 Boto3 user ke liye hai, Botocore AWS ke liye
+
+
+
+![image](https://github.com/user-attachments/assets/d92f7ac5-9621-4985-8fb4-a000c4be912d)
+
+![image](https://github.com/user-attachments/assets/1f868cd1-98c4-49de-8862-9d79fe457871)
+
+
